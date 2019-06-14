@@ -4,8 +4,7 @@
   "description": "Backend for MovDB",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "eslint": "eslint ./src"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Diego Toranzo",
   "license": "ISC",
@@ -24,6 +23,19 @@
     "eslint-plugin-prettier": "^3.1.0",
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
+    "husky": ">=1",
+    "lint-staged": ">=8",
     "prettier": "^1.18.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
   }
 }
