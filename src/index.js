@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const moviesRoutes = require('./routes/movies')
 
 const app = express()
 const dbConnection = mongoose.connection
@@ -19,6 +20,8 @@ dbConnection.on('error', error => {
 dbConnection.once('open', () => {
   console.log(`Listening on port ${process.env.PORT}`)
 })
+
+app.use('/movies', moviesRoutes)
 
 app.use('/', (req, res, next) => {
   res.send('I am working')
