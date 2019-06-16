@@ -44,4 +44,19 @@ router.post('/', async (req, res) => {
   }
 })
 
+// It deletes a movie
+router.delete('/:id', async (req, res) => {
+  try {
+    const result = await Movie.deleteOne({ _id: req.params.id })
+    if (result.deletedCount !== 1) {
+      const error = new Error('Movie not found')
+      error.statusCode = 404
+      throw error
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(error.statusCode || 500).send(error.message)
+  }
+})
+
 module.exports = router
