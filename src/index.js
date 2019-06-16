@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
 const moviesRoutes = require('./routes/movies')
 
 const app = express()
@@ -20,6 +21,8 @@ dbConnection.on('error', error => {
 dbConnection.once('open', () => {
   console.log(`Listening on port ${process.env.PORT}`)
 })
+
+app.use(bodyParser.json())
 
 app.use('/movies', moviesRoutes)
 
