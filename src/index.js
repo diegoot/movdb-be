@@ -26,8 +26,18 @@ app.use(bodyParser.json())
 
 app.use('/movies', moviesRoutes)
 
-app.use('/', (req, res, next) => {
-  res.send('I am working')
+app.use(function(req, res, next) {
+  const error = new Error('Not Found')
+  error.statusCode = 404
+  next(error)
+})
+
+app.use((error, req, res, next) => {
+  console.error(error.stack)
+  const code = error.statusCode || 500
+  res
+    .status(code)
+    .send({ message: error.message || 'Internal Server Error', code })
 })
 
 app.listen(process.env.PORT, () => {

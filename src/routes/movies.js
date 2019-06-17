@@ -3,29 +3,27 @@ const router = express.Router()
 const Movie = require('../models/Movie')
 
 // It retrieves all movies
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const movies = await Movie.find()
     res.send(movies)
   } catch (error) {
-    console.error(error)
-    res.status(500).send()
+    next(error)
   }
 })
 
 // It retrieves a single movie
-router.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res, next) => {
   try {
     const movie = await Movie.findById(req.params.id)
     res.send(movie)
   } catch (error) {
-    console.error(error)
-    res.status(500).send()
+    next(error)
   }
 })
 
 // It creates a new movie
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   const { title, year, director, poster, genre, synopsis } = req.body
   const movie = new Movie({
     title,
@@ -39,13 +37,12 @@ router.post('/', async (req, res) => {
     await movie.save()
     res.status(201).send()
   } catch (error) {
-    console.error(error)
-    res.status(500).send()
+    next(error)
   }
 })
 
 // It deletes a movie
-router.delete('/:id', async (req, res) => {
+router.delete('/:id', async (req, res, next) => {
   try {
     const result = await Movie.deleteOne({ _id: req.params.id })
     if (result.deletedCount !== 1) {
@@ -54,8 +51,7 @@ router.delete('/:id', async (req, res) => {
       throw error
     }
   } catch (error) {
-    console.error(error)
-    res.status(error.statusCode || 500).send(error.message)
+    next(error)
   }
 })
 
