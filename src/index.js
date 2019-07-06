@@ -32,6 +32,7 @@ app.use(function(req, res, next) {
   next(error)
 })
 
+// If I do not add next as parameter it is not executed
 app.use((error, req, res, next) => {
   console.error(error.stack)
   const code = error.statusCode || 500

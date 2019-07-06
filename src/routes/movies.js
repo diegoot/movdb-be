@@ -22,6 +22,18 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
+// It retrieves the N most recent movies
+router.get('/:n/mostrecent', async (req, res, next) => {
+  try {
+    const movies = await Movie.find()
+      .sort({ createdAt: -1 })
+      .limit(+req.params.n)
+    res.send(movies)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // It creates a new movie
 router.post('/', async (req, res, next) => {
   const { title, year, director, poster, genre, synopsis } = req.body
