@@ -2,6 +2,7 @@ const express = require('express')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 const moviesRoutes = require('./routes/movies')
 const genresRoutes = require('./routes/genres')
 
@@ -23,6 +24,7 @@ dbConnection.once('open', () => {
   console.log(`Listening on port ${process.env.PORT}`)
 })
 
+app.use(cors())
 app.use(bodyParser.json())
 
 app.use('/movies', moviesRoutes)
