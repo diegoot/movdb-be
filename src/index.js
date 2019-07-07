@@ -3,6 +3,7 @@ const mongoose = require('mongoose')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const moviesRoutes = require('./routes/movies')
+const genresRoutes = require('./routes/genres')
 
 const app = express()
 const dbConnection = mongoose.connection
@@ -25,6 +26,7 @@ dbConnection.once('open', () => {
 app.use(bodyParser.json())
 
 app.use('/movies', moviesRoutes)
+app.use('/genres', genresRoutes)
 
 app.use(function(req, res, next) {
   const error = new Error('Not Found')
