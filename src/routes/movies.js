@@ -53,6 +53,21 @@ router.post('/', async (req, res, next) => {
   }
 })
 
+// TODO: add authentication to this route
+// It updates a movie
+router.put('/:id', async (req, res, next) => {
+  try {
+    const movie = await Movie.findByIdAndUpdate(
+      req.params.id,
+      req.body.update,
+      { new: true }
+    )
+    res.send(movie)
+  } catch (error) {
+    next(error)
+  }
+})
+
 // It deletes a movie
 router.delete('/:id', async (req, res, next) => {
   try {
