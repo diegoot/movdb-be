@@ -26,7 +26,7 @@ router.get('/:id', async (req, res, next) => {
 router.get('/:n/mostrecent', async (req, res, next) => {
   try {
     const movies = await Movie.find()
-      .sort({ createdAt: -1 })
+      .sort({ year: -1 })
       .limit(+req.params.n)
     res.send(movies)
   } catch (error) {
