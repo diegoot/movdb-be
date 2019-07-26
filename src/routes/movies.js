@@ -87,6 +87,7 @@ router.delete('/:id', async (req, res, next) => {
       error.statusCode = 404
       throw error
     }
+    res.send()
   } catch (error) {
     next(error)
   }
