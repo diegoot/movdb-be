@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const cors = require('cors')
 const moviesRoutes = require('./routes/movies')
 const genresRoutes = require('./routes/genres')
+const usersRoutes = require('./routes/users')
 
 const app = express()
 const dbConnection = mongoose.connection
@@ -29,6 +30,7 @@ app.use(bodyParser.json())
 
 app.use('/movies', moviesRoutes)
 app.use('/genres', genresRoutes)
+app.use('/users', usersRoutes)
 
 app.use(function(req, res, next) {
   const error = new Error('Not Found')
@@ -46,5 +48,8 @@ app.use((error, req, res, next) => {
 })
 
 app.listen(process.env.PORT, () => {
-  mongoose.connect(process.env.DB_URL, { useNewUrlParser: true })
+  mongoose.connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
 })
