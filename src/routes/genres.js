@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Genre = require('../models/Genre')
+const authMiddleware = require('../auth/authMiddleware')
 
 // It retrieves all genres
 router.get('/', async (req, res, next) => {
@@ -13,7 +14,7 @@ router.get('/', async (req, res, next) => {
 })
 
 // It creates a genre
-router.post('/', async (req, res, next) => {
+router.post('/', authMiddleware, async (req, res, next) => {
   const genre = new Genre({ name: req.body.name })
   try {
     await genre.save()

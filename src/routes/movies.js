@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Movie = require('../models/Movie')
+const authMiddleware = require('../auth/authMiddleware')
 
 // It retrieves all movies
 router.get('/', async (req, res, next) => {
@@ -45,7 +46,7 @@ router.get('/forgenre/:genre', async (req, res, next) => {
 })
 
 // It creates a new movie
-router.post('/', async (req, res, next) => {
+router.post('/', authMiddleware, async (req, res, next) => {
   const { title, year, director, poster, genre, synopsis } = req.body
   const movie = new Movie({
     title,
@@ -63,9 +64,8 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-// TODO: add authentication to this route
 // It updates a movie
-router.put('/:id', async (req, res, next) => {
+router.put('/:id', authMiddleware, async (req, res, next) => {
   try {
     const movie = await Movie.findByIdAndUpdate(
       req.params.id,
@@ -79,7 +79,7 @@ router.put('/:id', async (req, res, next) => {
 })
 
 // It deletes a movie
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', authMiddleware, async (req, res, next) => {
   try {
     const result = await Movie.deleteOne({ _id: req.params.id })
     if (result.deletedCount !== 1) {

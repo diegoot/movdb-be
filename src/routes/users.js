@@ -38,7 +38,7 @@ router.post('/login', async (req, res, next) => {
       process.env.JWT_PRIVATE_KEY,
       { expiresIn: '1h' }
     )
-    res.send({ token })
+    res.send({ token: `Bearer ${token}` })
   } catch (error) {
     next(error)
   }
