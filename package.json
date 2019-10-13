@@ -4,8 +4,8 @@
   "description": "Backend for MovDB",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon src/index",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "NODE_ENV=dev nodemon src/index",
+    "test": "NODE_ENV=test nodemon src/index"
   },
   "author": "Diego Toranzo",
   "license": "ISC",
@@ -13,7 +13,7 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "dotenv": "^8.0.0",
+    "custom-env": "^1.0.2",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.15",
