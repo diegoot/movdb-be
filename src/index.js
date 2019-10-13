@@ -49,7 +49,8 @@ app.use((error, req, res, next) => {
 
 app.listen(process.env.PORT, () => {
   mongoose.connect(process.env.DB_URL, {
-    useNewUrlParser: true,
-    useCreateIndex: true
+    // To see more about below flags follow this link -> https://mongoosejs.com/docs/deprecations.html
+    useNewUrlParser: true, // use the new parser to parse MongoDB connection string
+    useCreateIndex: true // the MongoDB driver deprecated the ensureIndex() function in favor of createIndex() function
   })
 })
