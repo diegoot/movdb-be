@@ -42,10 +42,12 @@ app.use((error, req, res, next) => {
     .send({ message: error.message || 'Internal Server Error', code })
 })
 
-app.listen(process.env.PORT, () => {
+const server = app.listen(process.env.PORT, () => {
   mongoose.connect(process.env.DB_URL, {
     // To see more about below flags follow this link -> https://mongoosejs.com/docs/deprecations.html
     useNewUrlParser: true, // use the new parser to parse MongoDB connection string
     useCreateIndex: true // the MongoDB driver deprecated the ensureIndex() function in favor of createIndex() function
   })
 })
+
+module.exports = server
