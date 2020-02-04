@@ -34,3 +34,6 @@ JWT_PRIVATE_KEY=M0vDBPr1v4t3K3y
 ```
 
 2. From the command line and in the project's folder run `yarn test`
+
+# Live Demo
+Find it [here](https://secure-mesa-38428.herokuapp.com/).
