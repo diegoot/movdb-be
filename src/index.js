@@ -1,6 +1,6 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const customEnv = require('custom-env')
+const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const moviesRoutes = require('./routes/movies')
@@ -9,7 +9,7 @@ const usersRoutes = require('./routes/users')
 
 const app = express()
 const dbConnection = mongoose.connection
-customEnv.env(true)
+dotenv.config()
 
 dbConnection.on('error', error => {
   console.error(error)
