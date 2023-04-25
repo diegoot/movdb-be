@@ -10,30 +10,19 @@ For unit testing it uses mocha and chai.
 
 ### How to run the project locally
 
-1. Clone the repo
-2. Go to the repo folder
-3. Run `yarn install`
+1. git clone https://github.com/diegoot/movdb-be.git
+2. cd movdb-be
+3. npm install
 4. Create .env file in the root of your project's folder and paste the following content:
 
 ```
-PORT=3014
-DB_URL=mongodb://admin:abc123@ds231207.mlab.com:31207/movdb
+PORT=9000
+DB_URL=mongodb+srv://admin:admin1234@cluster0.xwduwts.mongodb.net/?retryWrites=true&w=majority
 JWT_PRIVATE_KEY=M0vDBPr1v4t3K3y
 ```
 
-5. From the command line and in the project's folder run `yarn dev`
+5. npm run dev
 
 ### How to run the unit tests
 
-1. Create a .env.test file with the following content:
-
-```
-PORT=3014
-DB_URL=mongodb://admin:abc123@ds233258.mlab.com:33258/movdb-test
-JWT_PRIVATE_KEY=M0vDBPr1v4t3K3y
-```
-
-2. From the command line and in the project's folder run `yarn test`
-
-# Live Demo
-Find it [here](https://secure-mesa-38428.herokuapp.com/).
+I am sorry but the are outdated right now, I need to work on them.
