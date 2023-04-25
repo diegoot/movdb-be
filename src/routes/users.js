@@ -4,6 +4,32 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const User = require('../models/User')
 
+/**
+ * @swagger
+ * /users/signup:
+ *   post:
+ *     tags:
+ *       - Users
+ *     summary: it creates a user
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - email
+ *              - password
+ *            properties:
+ *              email:
+ *                type: string
+ *              password:
+ *                type: string
+ *     description: it creates a user with a given email and password
+ *     responses:
+ *       201:
+ *         description: the user was created
+ */
 router.post('/signup', async (req, res, next) => {
   try {
     const encryptedPassword = await bcrypt.hash(req.body.password, 10)
@@ -18,6 +44,42 @@ router.post('/signup', async (req, res, next) => {
   }
 })
 
+/**
+ * @swagger
+ * /users/login:
+ *   post:
+ *     tags:
+ *       - Users
+ *     summary: it logins a user
+ *     requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *           schema:
+ *            type: object
+ *            required:
+ *              - email
+ *              - password
+ *            properties:
+ *              email:
+ *                type: string
+ *              password:
+ *                type: string
+ *     description: it logins a user based on an email and a password
+ *     responses:
+ *       200:
+ *         description: user logged in successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: authentication token
+ *       401:
+ *         description: authentication failed
+ */
 router.post('/login', async (req, res, next) => {
   try {
     const user = await User.findOne({ email: req.body.email })

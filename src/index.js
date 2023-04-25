@@ -5,6 +5,8 @@ const cors = require('cors')
 const moviesRoutes = require('./routes/movies')
 const genresRoutes = require('./routes/genres')
 const usersRoutes = require('./routes/users')
+const swaggerJSDoc = require('swagger-jsdoc')
+const swaggerUi = require('swagger-ui-express')
 
 try {
   main()
@@ -15,6 +17,26 @@ try {
 
 async function main() {
   dotenv.config()
+
+  // Swagger setup
+  const options = {
+    swaggerDefinition: {
+      openapi: '3.0.0',
+      info: {
+        title: 'Express API for JSONPlaceholder',
+        version: '1.0.0'
+      },
+      servers: [
+        {
+          url: `http://localhost:${process.env.PORT}`,
+          description: 'Development server'
+        }
+      ]
+    },
+    apis: ['src/routes/*.js']
+  }
+
+  const swaggerSpec = swaggerJSDoc(options)
 
   // Handle DB errors after initial connection
   mongoose.connection.on('error', error => {
@@ -38,6 +60,7 @@ async function main() {
   app.use('/movies', moviesRoutes)
   app.use('/genres', genresRoutes)
   app.use('/users', usersRoutes)
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
   // Not found route middleware
   app.use(function(req, res, next) {
